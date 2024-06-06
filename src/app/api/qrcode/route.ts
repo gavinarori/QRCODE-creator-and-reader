@@ -6,7 +6,7 @@ import { NextResponse } from 'next/server'
 export async function POST(request:Request){
     try{
         const biycleQrcode = await getCurrentUser()
-        if(!biycleQrcode){
+        if(!biycleQrcode?.id){
             return new NextResponse('unauthorized', {status: 401, })
         }
 
