@@ -16,7 +16,8 @@ export async function POST(request:Request){
 
         const postQrcodes = await prisma.qrcodes.create({
             data: {
-                qrcodes
+                qrcodes,
+                
             }
         });
         return NextResponse.json({ message: "success",  postQrcodes}, { status: 201 });
