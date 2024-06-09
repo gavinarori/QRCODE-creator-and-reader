@@ -1,6 +1,8 @@
 "use client"
 import React, { useEffect, useRef, useState } from 'react';
 import QrScanner from 'qr-scanner';
+import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface Camera {
   id: string;
@@ -13,12 +15,34 @@ const QrScannerComponent: React.FC = () => {
   const [hasFlash, setHasFlash] = useState<boolean>(false);
   const [cameras, setCameras] = useState<Camera[]>([]);
   const [hasCamera, setHasCamera] = useState<boolean>(false);
+  const [savedQrCodes, setSavedQrCodes] = useState<string[]>([])
+
+  useEffect(() => {
+    // Fetch saved QR codes
+    const fetchSavedQrCodes = async () => {
+      try {
+        const response = await axios.get('/api/qrcode/get');
+        setSavedQrCodes(response.data.map((qrCode: { qrcodes: string }) => qrCode.qrcodes));
+      } catch (error) {
+        console.error('Failed to fetch QR codes:', error);
+      }
+    };
+
+    fetchSavedQrCodes();
+  }, []);
 
   useEffect(() => {
     if (videoRef.current) {
       const scanner = new QrScanner(
         videoRef.current,
-        (result: string) => setResult(result)
+        (result: string) => {
+          setResult(result);
+          if (savedQrCodes.includes(result)) {
+            toast.success('Connected successfully!');
+          } else {
+            toast.error('Error: QR code does not match.');
+          }
+        }
       );
 
       const updateFlashAvailability = () => {
@@ -42,10 +66,11 @@ const QrScannerComponent: React.FC = () => {
         scanner.stop();
       };
     }
-  }, []);
+  }, [savedQrCodes]);
 
   return (
     <div className='flex justify-center items-center  bg-indigo-700 w-screen h-screen'>
+       <Toaster />
     <a  className="group block">
     <video ref={videoRef} className="h-[350px] w-full object-cover sm:h-[450px] rounded-2xl"></video>
 

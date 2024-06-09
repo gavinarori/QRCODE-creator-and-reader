@@ -16,7 +16,7 @@ const [data, setData] = useState({
 
 useEffect(() =>{
 if (sesesion.status === "authenticated"){
-  router.push('/components/Qrgenerator')
+  router.push('/')
 }
 })
 
