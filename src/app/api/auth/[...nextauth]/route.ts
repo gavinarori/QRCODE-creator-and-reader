@@ -1,77 +1,8 @@
-import { prisma } from '@/lib/prisma'
-import NextAuth, { type NextAuthOptions } from 'next-auth'
-import CredentialsProvider from 'next-auth/providers/credentials'
 
-export const authOptions: NextAuthOptions = {
-  session: {
-    strategy: 'jwt'
-  },
-  providers: [
-    CredentialsProvider({
-      name: 'Login in',
-      credentials: {
-        email: {
-          label: 'Email',
-          type: 'email',
-          placeholder: 'hello@example.com'
-        },
-        password: { label: 'Registration number', type: 'password' }
-      },
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials.password) {
-          return null
-        }
+import NextAuth from "next-auth/next";
+import { authOptions } from "@/lib/authOptions";
 
-        const user = await prisma.user.findUnique({
-          where: {
-            email: credentials.email
-          }
-        })
 
-        if (!user) {
-          return null
-        }
+const handler = NextAuth(authOptions);
 
-        const isPasswordValid = credentials.password ===  user.password
-
-        if (!isPasswordValid) {
-          return null
-        }
-
-        return {
-          id: user.id + '',
-          email: user.email,
-          randomKey: 'Hey cool'
-        }
-      }
-    })
-  ],
-  callbacks: {
-    session: ({ session, token }) => {
-      console.log('Session Callback', { session, token })
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: token.id,
-          randomKey: token.randomKey
-        }
-      }
-    },
-    jwt: ({ token, user }) => {
-      console.log('JWT Callback', { token, user })
-      if (user) {
-        const u = user as unknown as any
-        return {
-          ...token,
-          id: u.id,
-          randomKey: u.randomKey
-        }
-      }
-      return token
-    }
-  }
-}
-
-const handler = NextAuth(authOptions)
-export { handler as GET, handler as POST }
+export { handler as GET, handler as POST };
