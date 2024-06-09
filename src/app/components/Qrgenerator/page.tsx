@@ -93,7 +93,7 @@ function QRgenerator() {
                         </button>
                         <a
                             className="mt-5 block rounded border border-gray-100 text-center px-6 py-3 text-sm font-medium text-gray-100 hover:bg-accent hover:text-white focus:outline-none focus:ring active:text-indigo-500"
-                            href="#"
+                            href="/components/Camera"
                         >
                             Scan
                         </a>

@@ -45,20 +45,47 @@ const QrScannerComponent: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <video ref={videoRef} style={{ width: '100%' }}></video>
-      <div>
-        <p>QR Code Result: {result}</p>
-        <p>Has Flash: {hasFlash.toString()}</p>
-        <p>Has Camera: {hasCamera.toString()}</p>
-        <select>
-          {cameras.map((camera) => (
+    <div className='flex justify-center items-center  bg-indigo-700 w-screen h-screen'>
+    <a  className="group block">
+    <video ref={videoRef} className="h-[350px] w-full object-cover sm:h-[450px] rounded-2xl"></video>
+
+  <div className="mt-1.5">
+    <p className="text-xs text-gray-200">QR Code Result: {result}</p>
+
+    <div className="mt-1.5 flex gap-1">
+      <form>
+        
+        <div className="flex flex-wrap justify-center gap-1 [&:hover_label]:opacity-75">
+        
+        <div>
+  <label htmlFor="HeadlineAct" className="block text-sm text-gray-200"> select your Camera </label>
+
+  <select
+    name="HeadlineAct"
+    id="HeadlineAct"
+    className="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm"
+  >
+    {cameras.map((camera) => (
             <option key={camera.id} value={camera.id}>
               {camera.label}
             </option>
           ))}
-        </select>
-      </div>
+  </select>
+</div> 
+        </div>
+      </form>
+    </div>
+
+    <div className="mt-3 flex justify-between text-sm">
+      <h3 className="text-gray-200 group-hover:underline group-hover:underline-offset-4">
+       Has Flash: {hasFlash.toString()}
+      </h3>
+
+      <p className="text-gray-200">Has Camera: {hasCamera.toString()}</p>
+    </div>
+  </div>
+</a>
+     
     </div>
   );
 };
