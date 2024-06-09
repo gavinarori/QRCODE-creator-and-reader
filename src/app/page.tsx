@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import QRCode from 'qrcode.react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from "next/navigation"
+import toast, { Toaster } from 'react-hot-toast';
 
 function QRgenerator() {
     const [qr, setQr] = useState('Dedan kimathi university');
@@ -64,9 +65,11 @@ function QRgenerator() {
     const handleSave = async () => {
       try {
           const response = await axios.post('/api/qrcode', { qrcodes: qr });
+          toast.success('QR code saved successfully!');
           console.log('QR code saved successfully:', response.data);
       } catch (error) {
           console.error('Failed to save QR code:', error);
+          toast.error('Failed to save QR code');
       }
   };
     
@@ -74,6 +77,7 @@ function QRgenerator() {
     return (
         <section className="bg-indigo-700 w-screen h-screen">
             <div className="flex justify-center items-center">
+            <Toaster />
                 <div className="block mt-6">
                     <div className="flex justify-center">
                         {qr ? (
