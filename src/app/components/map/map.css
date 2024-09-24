@@ -1,0 +1,35 @@
+/* Custom marker with pulse animation */
+.live-location-icon {
+    background-color: transparent;
+    position: relative;
+    width: 20px;
+    height: 20px;
+  }
+  
+  .pulse {
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse-animation 2s infinite;
+  }
+  
+  @keyframes pulse-animation {
+    0% {
+      transform: scale(0.8);
+      opacity: 0.9;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.3;
+    }
+    100% {
+      transform: scale(0.8);
+      opacity: 0.9;
+    }
+  }
+  
