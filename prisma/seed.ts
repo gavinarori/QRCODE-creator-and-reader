@@ -4,11 +4,11 @@ const prisma = new PrismaClient();
 
 async function main() {
   const user = await prisma.user.upsert({
-    where: { email: 'alice@prisma.io' },
+    where: { email: 'bore.mercy20@students.dkut.ac.ke' },
     update: {},
     create: {
-      email: 'alice@prisma.io',
-      password: 'E020-01-1251/2021',
+      email: 'bore.mercy20@students.dkut.ac.ke',
+      password: 'E021-01-0993/2020',
     },
   });
   console.log({ user });
