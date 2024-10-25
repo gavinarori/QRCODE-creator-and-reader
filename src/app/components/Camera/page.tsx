@@ -35,10 +35,11 @@ const QrScannerComponent: React.FC = () => {
   const sendSMS = async (qrCodeResult: string) => {
     try {
       await axios.post('/api/qrcode/sms', {
-        to: '254705470037', 
+        to: '254114146942', 
         message: `QR Code scanned successfully: ${qrCodeResult}`
       });
       toast.success('SMS sent successfully!');
+      console.log(result, savedQrCodes)
     } catch (error) {
       console.error('Failed to send SMS:', error);
       toast.error('Failed to send SMS.');

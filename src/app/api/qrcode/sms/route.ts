@@ -22,7 +22,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing "to" or "message" in request body' }, { status: 400 });
     }
 
-    const from = 'Vonage APIs'; 
+    const from = 'dekut bicycle lock'; 
 
     const response = await vonage.sms.send({ to, from, text: message });
     console.log('Message sent successfully', response);
