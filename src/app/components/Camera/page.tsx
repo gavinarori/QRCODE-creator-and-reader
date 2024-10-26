@@ -55,7 +55,7 @@ const sendSMS = async (qrCodeResult: string) => {
       },
       {
         headers: {
-          'Authorization': 'App 3b4d176b4bc92a9ab185c8b34307f31b-c26d11e5-ebeb-4419-b544-d51866c16378', // Ensure "App" precedes the API key
+          'Authorization': 'App 3b4d176b4bc92a9ab185c8b34307f31b-c26d11e5-ebeb-4419-b544-d51866c16378', 
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         }
