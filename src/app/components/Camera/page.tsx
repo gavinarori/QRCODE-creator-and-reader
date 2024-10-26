@@ -33,32 +33,42 @@ const QrScannerComponent: React.FC = () => {
   }, []);
 
   // Function to send SMS using Infobip API
-  const sendSMS = async (qrCodeResult: string) => {
-    try {
-      await axios.post(
-        'https://your-infobip-endpoint/sms/2/text/advanced', 
-        {
-          messages: [
-            {
-              destinations: [{ to: '254794859739' }],
-              text: `bicycle unlocked successfully: ${qrCodeResult}`
+ // Updated sendSMS function in React component
+const sendSMS = async (qrCodeResult: string) => {
+  try {
+    await axios.post(
+      'https://kq9pke.api.infobip.com/sms/3/messages',
+      {
+        messages: [
+          {
+            sender: 'InfoSMS',
+            destinations: [
+              {
+                to: '254794859739' 
+              }
+            ],
+            content: {
+              text: `Bicycle unlocked successfully: ${qrCodeResult}`
             }
-          ]
-        },
-        {
-          headers: {
-            'Authorization': `3b4d176b4bc92a9ab185c8b34307f31b-c26d11e5-ebeb-4419-b544-d51866c16378`,
-            'Content-Type': 'application/json'
           }
+        ]
+      },
+      {
+        headers: {
+          'Authorization': 'App 3b4d176b4bc92a9ab185c8b34307f31b-c26d11e5-ebeb-4419-b544-d51866c16378', // Ensure "App" precedes the API key
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         }
-      );
-      toast.success('SMS sent successfully!');
-      console.log(result, savedQrCodes);
-    } catch (error) {
-      console.error('Failed to send SMS:', error);
-      toast.error('Failed to send SMS.');
-    }
-  };
+      }
+    );
+    toast.success('SMS sent successfully!');
+    console.log(result, savedQrCodes);
+  } catch (error) {
+    console.error('Failed to send SMS:', error);
+    toast.error('Failed to send SMS.');
+  }
+};
+
 
   useEffect(() => {
     if (videoRef.current) {
