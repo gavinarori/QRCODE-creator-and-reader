@@ -1,4 +1,5 @@
 "use client"
+
 import React, { useEffect, useRef, useState } from 'react';
 import QrScanner from 'qr-scanner';
 import axios from 'axios';
@@ -31,15 +32,28 @@ const QrScannerComponent: React.FC = () => {
     fetchSavedQrCodes();
   }, []);
 
-  // Function to send SMS using the API
+  // Function to send SMS using Infobip API
   const sendSMS = async (qrCodeResult: string) => {
     try {
-      await axios.post('/api/qrcode/sms', {
-        to: '254114146942', 
-        message: `QR Code scanned successfully: ${qrCodeResult}`
-      });
+      await axios.post(
+        'https://your-infobip-endpoint/sms/2/text/advanced', 
+        {
+          messages: [
+            {
+              destinations: [{ to: '254794859739' }],
+              text: `bicycle unlocked successfully: ${qrCodeResult}`
+            }
+          ]
+        },
+        {
+          headers: {
+            'Authorization': `3b4d176b4bc92a9ab185c8b34307f31b-c26d11e5-ebeb-4419-b544-d51866c16378`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
       toast.success('SMS sent successfully!');
-      console.log(result, savedQrCodes)
+      console.log(result, savedQrCodes);
     } catch (error) {
       console.error('Failed to send SMS:', error);
       toast.error('Failed to send SMS.');
@@ -86,7 +100,7 @@ const QrScannerComponent: React.FC = () => {
   }, [savedQrCodes]);
 
   return (
-    <div className='flex justify-center items-center  bg-indigo-700 w-screen h-screen'>
+    <div className='flex justify-center items-center bg-indigo-700 w-screen h-screen'>
       <Toaster />
       <a className="group block">
         <video ref={videoRef} className="h-[350px] w-full object-cover sm:h-[450px] rounded-2xl"></video>
