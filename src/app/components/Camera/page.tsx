@@ -48,7 +48,7 @@ const sendSMS = async (qrCodeResult: string) => {
               }
             ],
             content: {
-              text: ` Bicycle unlocked succefully from Dock 1`
+              text: ` Bicycle unlocked  successfully from Dock 1`
             }
           }
         ]
