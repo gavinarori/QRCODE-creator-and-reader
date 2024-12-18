@@ -37,25 +37,25 @@ const QrScannerComponent: React.FC = () => {
 const sendSMS = async (qrCodeResult: string) => {
   try {
     await axios.post(
-      'https://jjqzl4.api.infobip.com/sms/3/messages',
+      'https://pe8z4v.api.infobip.com/sms/3/messages',
       {
         messages: [
           {
             sender: 'InfoSMS',
             destinations: [
               {
-                to: '254114146942' 
+                to: '245797834901' 
               }
             ],
             content: {
-              text: ` Bicycle unlocked  successfully from Dock 1`
+              text: ` Bike  unlocked`
             }
           }
         ]
       },
       {
         headers: {
-          'Authorization': 'App 3af30c9fdce9115a4adc9b8492b8fe72-9cb3010f-9f2f-443e-9989-ef08c7911be1', 
+          'Authorization': 'App 8f2323f778795aed6a22e66727e61729-1180758e-f216-4efe-b900-d3207f357050', 
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         }
