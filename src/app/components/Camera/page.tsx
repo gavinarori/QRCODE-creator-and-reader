@@ -44,7 +44,7 @@ const sendSMS = async (qrCodeResult: string) => {
             sender: 'InfoSMS',
             destinations: [
               {
-                to: '245797834901' 
+                to: '254797834901' 
               }
             ],
             content: {
